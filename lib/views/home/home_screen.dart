@@ -1,5 +1,7 @@
 import 'package:alarmapp/core/constants/asset_constants.dart';
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import '../../controllers/home/home_controller.dart';
 import '../../controllers/alarm/alarm_controller.dart';
@@ -25,6 +27,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   final alarmController = Get.put(AlarmController());
   final homeController = Get.put(HomeController());
+  late final AudioPlayer _audioPlayer;
 
   Timer? _refreshTimer;
 
@@ -36,6 +39,8 @@ class _HomeScreenState extends State<HomeScreen> {
       await alarmController.loadAlarms();
       _setupPeriodicRefresh();
 
+      //volume control
+      HardwareKeyboard.instance.addHandler(_handleKeyEvent);
       // Initialize background service only if needed
       final prefs = await SharedPreferences.getInstance();
       final launchData = await AlarmBackgroundService.getAlarmLaunchData();
@@ -65,6 +70,26 @@ class _HomeScreenState extends State<HomeScreen> {
       });
     });
   }
+
+
+  //start volume control
+
+
+  bool _handleKeyEvent(KeyEvent event) {
+    if (event is KeyDownEvent) {
+      if (event.logicalKey == LogicalKeyboardKey.audioVolumeUp ||
+          event.logicalKey == LogicalKeyboardKey.audioVolumeDown) {
+        _resetToFixedVolume();
+        return true; // Prevent default behavior
+      }
+    }
+    return false;
+  }
+
+  Future<void> _resetToFixedVolume() async {
+    await _audioPlayer.setVolume(.8);
+  }
+  //end volume control
 
   /// Checks if the app was launched from an alarm notification
   Future<void> _checkAlarmLaunchIntent() async {
@@ -247,6 +272,9 @@ class _HomeScreenState extends State<HomeScreen> {
   void dispose() {
     _refreshTimer?.cancel();
     // No need to remove listeners with GetX's reactive approach
+
+    HardwareKeyboard.instance.removeHandler(_handleKeyEvent);
+    _audioPlayer.dispose();
     super.dispose();
   }
 
@@ -432,4 +460,5 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     );
   }
+
 }
