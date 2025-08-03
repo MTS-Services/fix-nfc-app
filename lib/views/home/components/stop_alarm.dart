@@ -620,7 +620,7 @@ class _AlarmStopWidgetState extends State<AlarmStopScreen>
                                               ? errorMessage.value
                                               : _nfcController
                                                       .isVerifyingAlarm.value
-                                                  ? 'Hold your device near the NFC tag'
+                                                  ? 'Go to Settings to connect the NFC Tag'
                                                   : 'Press retry to scan again or use backup code',
                                           textAlign: TextAlign.center,
                                           style: GoogleFonts.inter(

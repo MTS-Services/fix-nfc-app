@@ -312,8 +312,8 @@ class _AlarmSoundsWidgetState extends State<AlarmSoundsWidget> {
               boxShadow: [
                 BoxShadow(
                   color: isSelected
-                      ? Colors.red.withValues(alpha: 0.7)
-                      : Colors.black.withValues(alpha: 0.3),
+                      ? Colors.red.withOpacity( 0.7)
+                      : Colors.black.withOpacity(0.3),
                   blurRadius: 10,
                   spreadRadius: 4,
                   offset: const Offset(0, 3),
@@ -323,7 +323,7 @@ class _AlarmSoundsWidgetState extends State<AlarmSoundsWidget> {
               border: isSelected
                   ? Border.all(
                       color:
-                          Theme.of(context).primaryColor.withValues(alpha: 0.5),
+                          Theme.of(context).primaryColor.withOpacity(0.5),
                       width: 2,
                     )
                   : null,
