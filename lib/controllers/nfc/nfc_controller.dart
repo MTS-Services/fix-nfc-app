@@ -663,3 +663,4 @@ class NFCController extends GetxController {
     }
   }
 }
+

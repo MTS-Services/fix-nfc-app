@@ -246,3 +246,6 @@ class NFCHelper: NSObject, NFCNDEFReaderSessionDelegate, NFCTagReaderSessionDele
         }
     }
 } 
+
+
+
