@@ -122,8 +122,8 @@ class MyApp extends StatelessWidget {
         GetPage(
           name: AppConstants.nfcScan,
           page: () {
-            final Map<String, dynamic> args = Get.arguments ?? {};
-            final int alarmId = args['alarmId'] ?? 0;
+            final Map<String, dynamic> args = Get.arguments as Map<String, dynamic>? ?? {};
+            final int alarmId = args['alarmId'] as int? ?? 0;
             return AddNFCWidget(alarmId: alarmId);
           },
           transition: Transition.rightToLeft,
@@ -131,13 +131,13 @@ class MyApp extends StatelessWidget {
         GetPage(
           name: AppConstants.stopAlarm,
           page: () {
-            // Check for direct navigation from notification
-            final Map<String, dynamic> args = Get.arguments ?? {};
-            final int alarmId = args['alarmId'] ?? 0;
-            final int soundId = args['soundId'] ?? 1;
+            final Map<String, dynamic> args = Get.arguments as Map<String, dynamic>? ?? {};
+            final int alarmId = args['alarmId'] as int? ?? 0;
+            final int soundId = args['soundId'] as int? ?? 1;
 
             return AlarmStopScreen.fromArguments(
-                args.isEmpty ? {'alarmId': alarmId, 'soundId': soundId} : args);
+              args.isEmpty ? {'alarmId': alarmId, 'soundId': soundId} : args,
+            );
           },
           transition: Transition.fadeIn,
         ),
@@ -161,3 +161,4 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+
