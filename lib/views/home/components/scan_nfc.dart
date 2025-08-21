@@ -8,7 +8,7 @@ class AddNFCWidget extends StatefulWidget {
 
   const AddNFCWidget({
     super.key,
-    required this.alarmId,
+    required this.alarmId,// alarm ID to register the NFC tag for
   });
 
   @override
